@@ -3,7 +3,7 @@ import AddEditQuizModal from './quizzModal'
 import { useSelector } from 'react-redux';
 import '../App.css'
 import { useDispatch } from 'react-redux';
-import { addQuizAction, deleteQuizAction, setQuestionsAction, updateQuizAction, setQuizzesAction } from "../state/quizzesSlice";
+import { addQuizAction, setQuestionsAction, updateQuizAction, setQuizzesAction } from "../state/quizzesSlice";
 import { useNavigate } from 'react-router-dom';
 import { fetchQuizzes, createQuiz, deleteQuiz, updateQuiz } from '../api/quizzes'
 import { fetchDeletedQuestions } from '../api/questions'
@@ -16,7 +16,6 @@ const QuizzComponent = () => {
   useEffect(() => {
     fetchQuizzes()
       .then(res => {
-        //console.log(res)
         dispatch(setQuizzesAction(res.quizzes));
         dispatch(setQuestionsAction(res.deleted_questions));
       })
@@ -57,12 +56,10 @@ const QuizzComponent = () => {
   };
 
   const addQuiz = (createdQuiz) => {
-    //console.log(createdQuiz)
     if(createdQuiz.id) {
       //Edit the quiz
       let id = createdQuiz.id
       updateQuiz(id, createdQuiz).then(res => {
-          //console.log(res)
           dispatch(updateQuizAction(res.quiz));
           dispatch(setQuestionsAction(res.deleted_questions));
       })
@@ -81,10 +78,6 @@ const QuizzComponent = () => {
 
   return (
     <div>
-      
-      {/* {quizzes.map(quizz => (
-        <p key={quizz.id}>{quizz.name}</p>
-      ))} */}
 
       <div className="container">
         <div className="row mb-5">

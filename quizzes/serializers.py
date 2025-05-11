@@ -17,17 +17,6 @@ class QuizzSerializer(serializers.ModelSerializer):
             question = Question.objects.create(**question_data)
             quizz.questions.add(question)
         return quizz    
-    
-    """
-        Example of request data:
-        {
-            "title": "My Quiz",
-            "questions": [
-                {"question": "Q1", "answer": "A1"},
-                {"question": "Q2", "answer": "A2"}
-            ]
-        }
-    """
 
 class QuizzEditSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True)

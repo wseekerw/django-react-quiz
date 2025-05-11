@@ -14,4 +14,3 @@ class Question(models.Model):
         return self.question
     
     objects = QuestionManager()
-    # Question.objects.deleted()

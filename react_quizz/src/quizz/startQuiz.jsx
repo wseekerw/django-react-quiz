@@ -27,9 +27,8 @@ const StartQuiz = () => {
     useEffect(()=>{
 
         if (quiz) {
-            const deepCopiedQuiz = JSON.parse(JSON.stringify(quiz)); // Create deep copy
+            const deepCopiedQuiz = JSON.parse(JSON.stringify(quiz)); 
         
-            // Modify the deep copy
             deepCopiedQuiz.questions = deepCopiedQuiz.questions.map((q) => ({
               ...q,
               answered: false,
@@ -79,13 +78,12 @@ const StartQuiz = () => {
       };
     
     const onSubmitAnswer = (question, answer, index) => {
-        //console.log(question, answer, index);
+
         let answerFromQuestion = question.answer.toLowerCase();
         let submittedAnswer = answer.toLowerCase();
 
         let isCorrect = submittedAnswer.includes(answerFromQuestion);
 
-        // Create a new copy of the questions array
         let updatedQuestions = [...quizzForSolving.questions];
         updatedQuestions[index] = {
             ...updatedQuestions[index],
@@ -93,7 +91,6 @@ const StartQuiz = () => {
             correct: isCorrect,
         };
 
-        // Update state with the new questions array
         setQuizzForSolving(prev => ({
             ...prev,
             questions: updatedQuestions,
@@ -153,7 +150,6 @@ const StartQuiz = () => {
                                     disabled={question.answered || !answer || answer.trim() === ""}
                                     onClick={() => {
                                         const values = getValues();
-                                        //console.log(values)
                                         const answer = values.submittedAnswers[i];
                                         onSubmitAnswer(question, answer, i)
                                       }}

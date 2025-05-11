@@ -46,7 +46,6 @@ class QuizDeleteView(APIView):
 class QuizEditView(APIView):
     def put(self, request, pk):
         try:
-            # Try to get the quiz by id
             quizz = Quizz.objects.get(pk=pk)
         except Quizz.DoesNotExist:
             return Response({"error": "Quiz not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -55,14 +54,12 @@ class QuizEditView(APIView):
         title = data.get('title')
         questions_data = data.get('questions', [])
 
-        # Store original questions
         original_questions = set(quizz.questions.all())
 
         updated_questions = []
 
         for q in questions_data:
             if 'id' in q:
-                # if questions already exists set is_deleted = False and put it in updated_questions
                 try:
                     question = Question.objects.get(pk=q['id'])
                     question.is_deleted = False
@@ -71,9 +68,8 @@ class QuizEditView(APIView):
                     question.save()
                     updated_questions.append(question)
                 except Question.DoesNotExist:
-                    continue  # Skip invalid questions
+                    continue  
             else:
-                # Create the questions that don't have an id
                 question = Question.objects.create(
                     question=q['question'],
                     answer=q['answer'],
@@ -81,24 +77,19 @@ class QuizEditView(APIView):
                 )
                 updated_questions.append(question)
 
-        # Save updated quiz
         quizz.title = title
         quizz.save()
 
-        # Set new questions
         quizz.questions.set(updated_questions)
 
-        # Set the questions removed from a quiz
         removed_questions = original_questions - set(updated_questions)
         deleted_questions = []
         
-        # If the questions were only a part of this quiz then set them to be is_deleted = True
         for q in removed_questions:
             if q.quizzes.count() == 1:  
                 q.is_deleted = True
                 q.save()
         
-        # Get the updated questions to refpresh the list in Frontend
         deleted_questions = Question.objects.filter(is_deleted=True)
 
         quiz_serializer = QuizzSerializer(quizz)
