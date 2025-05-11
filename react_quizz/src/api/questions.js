@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8000/api/questions/';
-const list = 'deleted/' // list of deleted questions
+const list = 'deleted/' 
 
 
 export const fetchDeletedQuestions = async () => {

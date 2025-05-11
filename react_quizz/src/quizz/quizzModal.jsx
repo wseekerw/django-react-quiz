@@ -22,14 +22,12 @@ const AddEditQuizModal = ({ show, onHide, quiz, addQuiz }) => {
       title: '',
       questions: []
     })
-    // Hide the modal
     onHide();
   };
 
 
   useEffect(()=>{
       if(quiz) {
-        //console.log(quiz)
         reset({
           title: quiz.title,
           questions: quiz.questions
@@ -54,7 +52,6 @@ const AddEditQuizModal = ({ show, onHide, quiz, addQuiz }) => {
 
   const onSubmit = (data) => {
     data.id = quiz?.id ?? null;
-    //console.log('Quiz submitted:', data);
     addQuiz(data)
     handleClose()
   };
@@ -160,7 +157,6 @@ const AddEditQuizModal = ({ show, onHide, quiz, addQuiz }) => {
                 placeholder="Question"
               />
 
-              {/* Error for question */}
               {((errors.questions?.[index]?.question && touchedFields.questions?.[index]?.question) || isSubmitted) && (
                 <div className="text-danger mt-1">
                   Question is required
@@ -177,7 +173,7 @@ const AddEditQuizModal = ({ show, onHide, quiz, addQuiz }) => {
               {...register(`questions.${index}.answer`, { required: true })}
               placeholder="Answer"
             />
-            {/* Error for answer */}
+
             {((errors.questions?.[index]?.answer && touchedFields.questions?.[index]?.answer) || isSubmitted) && (
               <div className="text-danger mt-1">
                 Answer is required

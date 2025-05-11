@@ -1,7 +1,6 @@
 from django.db import models
 from questions.models import Question
 
-# Create your models here.
 class Quizz(models.Model):
     
     title = models.CharField(max_length=255)
