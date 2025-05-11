@@ -1,0 +1,23 @@
+# Python and Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.sqlite3
+*.env
+.env.*
+
+# Django collectstatic output
+staticfiles/
+
+# React 
+react_quizz/node_modules/
+react_quizz/.parcel-cache/
+react_quizz/.env
+react_quizz/.DS_Store
+
+# IDE/editor stuff
+.vscode/
+.idea/
